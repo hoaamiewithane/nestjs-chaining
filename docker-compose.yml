@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  api-gate-way:
+    build: ./api-gateway
+    ports:
+      - "9800:9800"
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "9801:9801"
