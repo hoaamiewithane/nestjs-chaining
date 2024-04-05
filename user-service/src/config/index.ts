@@ -1,3 +1,7 @@
+import { config } from 'dotenv'
+
+config()
+
 const configuration = {
   port: parseInt(process.env.PORT!),
   host: process.env.GRPC_HOST,

@@ -4,6 +4,9 @@ import { ConfigModule } from '@nestjs/config'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { UserModule } from './user/user.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ProfileModule } from './profile/profile.module'
+import { typeormConfig } from '@/config/typeorm.config'
 
 @Module({
   imports: [
@@ -11,7 +14,9 @@ import { UserModule } from './user/user.module'
       isGlobal: true,
       load: [() => configuration]
     }),
-    UserModule
+    TypeOrmModule.forRoot(typeormConfig),
+    UserModule,
+    ProfileModule
   ],
   controllers: [AppController],
   providers: [AppService]

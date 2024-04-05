@@ -22,8 +22,6 @@ export class AuthResolver implements OnModuleInit {
 
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
-    console.log('gateway', data)
-    const user = await this.usersService.find(data).toPromise()
-    return user
+    return this.usersService.find(data).pipe((res) => res)
   }
 }
