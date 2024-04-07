@@ -9,7 +9,12 @@ export class UserController {
 
   @GrpcMethod('UsersService', 'FindByEmail')
   async findByEmail(payload: ISignupPayload) {
-    return await this.userService.findByEmail(payload.email)
+    return {
+      email: payload.email + 'qwe',
+      password: payload.password + 'hoaa',
+      qwe: 'zzz'
+    }
+    // return await this.userService.findByEmail(payload.email)
   }
 
   @GrpcMethod('UsersService', 'Signup')

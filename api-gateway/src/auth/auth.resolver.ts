@@ -5,7 +5,7 @@ import { USERS_SERVICE } from '@/core/constants'
 import { ClientGrpcProxy } from '@nestjs/microservices'
 import { IUsersService } from '@/user/user.interface'
 import { SignupUserInput } from '@/graphql/type'
-import { lastValueFrom } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 
 @Resolver()
 export class AuthResolver implements OnModuleInit {
@@ -23,11 +23,12 @@ export class AuthResolver implements OnModuleInit {
 
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
-    try {
-      const res = await lastValueFrom(this.usersService.findByEmail(data))
-      console.log({ res })
-    } catch (err) {
-      console.log('zo day')
+    const res = await firstValueFrom(this.usersService.findByEmail(data))
+    console.log('res', res)
+    return {
+      accessToken: 'accessToken',
+      refreshToken: 'refreshToken',
+      user: res
     }
   }
 }

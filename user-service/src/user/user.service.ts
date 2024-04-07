@@ -3,6 +3,7 @@ import { ISignupPayload } from '@/user/user.interface'
 import { UserEntity } from '@/user/entities/user.entity'
 import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService {
@@ -12,20 +13,15 @@ export class UserService {
   ) {}
 
   async findByEmail(email: string) {
-    const res = await this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: { email }
     })
-    console.log({ res })
-    return res
   }
 
   async signUp(data: ISignupPayload) {
-    const { email, password } = data
-    const user = await this.userRepository.findOne({
-      where: { email }
-    })
-    if (user) {
-      throw new Error('User already exists')
-    }
+    data.password = await bcrypt.hash(data.password, 10)
+    console.log(data)
+
+    return await this.userRepository.save(data)
   }
 }

@@ -1,4 +1,6 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
+
 
 package user;
 
@@ -16,3 +18,11 @@ message SignupInput {
 message PayloadFindByEmail {
   string email = 1;
 }
+
+message UserOrNull {
+  oneof user_or_null {
+    SignupInput user = 1;
+    google.protobuf.Empty null_user = 2;
+  }
+}
+
