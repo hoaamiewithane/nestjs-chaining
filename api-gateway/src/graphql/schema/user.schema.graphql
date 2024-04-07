@@ -15,10 +15,7 @@ type SignUpResponse {
 }
 
 type User {
-    id: Int
-    name: String
     email: String
-    age: Int
 }
 
 input SignupUserInput {

@@ -29,10 +29,7 @@ export interface SignUpResponse {
 }
 
 export interface User {
-    id?: Nullable<number>;
-    name?: Nullable<string>;
     email?: Nullable<string>;
-    age?: Nullable<number>;
 }
 
 type Nullable<T> = T | null;

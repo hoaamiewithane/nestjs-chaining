@@ -7,16 +7,6 @@ import { ISignupPayload } from '@/user/user.interface'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @GrpcMethod('UsersService', 'FindByEmail')
-  async findByEmail(payload: ISignupPayload) {
-    return {
-      email: payload.email + 'qwe',
-      password: payload.password + 'hoaa',
-      qwe: 'zzz'
-    }
-    // return await this.userService.findByEmail(payload.email)
-  }
-
   @GrpcMethod('UsersService', 'Signup')
   async signup(payload: ISignupPayload) {
     return await this.userService.signUp(payload)

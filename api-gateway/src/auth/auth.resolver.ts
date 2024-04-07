@@ -23,7 +23,7 @@ export class AuthResolver implements OnModuleInit {
 
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
-    const res = await firstValueFrom(this.usersService.findByEmail(data))
+    const res = await firstValueFrom(this.usersService.signup(data))
     console.log('res', res)
     return {
       accessToken: 'accessToken',
