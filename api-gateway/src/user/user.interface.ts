@@ -1,6 +1,8 @@
-import { Metadata } from '@grpc/grpc-js'
 import { Observable } from 'rxjs'
+import { SignupUserInput, User } from '@/graphql/type'
 
 export interface IUsersService {
-  find(query: any, metadata?: Metadata): Observable<any>
+  findByEmail(email: Pick<SignupUserInput, 'email'>): Observable<User | null>
+
+  signup(data: SignupUserInput): Observable<User>
 }

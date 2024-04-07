@@ -9,10 +9,8 @@
 /* eslint-disable */
 
 export interface SignupUserInput {
-    name: string;
     email: string;
     password: string;
-    age?: Nullable<number>;
 }
 
 export interface IQuery {
@@ -21,7 +19,13 @@ export interface IQuery {
 }
 
 export interface IMutation {
-    signup(data?: Nullable<SignupUserInput>): User | Promise<User>;
+    signup(data?: Nullable<SignupUserInput>): Nullable<SignUpResponse> | Promise<Nullable<SignUpResponse>>;
+}
+
+export interface SignUpResponse {
+    accessToken?: Nullable<string>;
+    refreshToken?: Nullable<string>;
+    user?: Nullable<User>;
 }
 
 export interface User {

@@ -4,7 +4,6 @@ if [ "$1" == "gateway" ]; then
     # Start API Gateway
     echo "Starting API Gateway..."
     cd api-gateway
-    npx kill-port 9800
     pnpm dev &
     cd ..
     echo "API Gateway started successfully!"
@@ -20,7 +19,6 @@ else
     # Start API Gateway
     echo "Starting API Gateway..."
     cd api-gateway
-    npx kill-port 9800
     pnpm dev &
     cd ..
 

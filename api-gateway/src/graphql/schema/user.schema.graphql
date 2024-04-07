@@ -4,7 +4,14 @@ type Query {
 }
 
 type Mutation {
-    signup(data: SignupUserInput): User!
+    signup(data: SignupUserInput):SignUpResponse
+}
+
+
+type SignUpResponse {
+    accessToken: String
+    refreshToken:String
+    user: User
 }
 
 type User {
@@ -15,8 +22,6 @@ type User {
 }
 
 input SignupUserInput {
-    name: String!
     email: String!
     password: String!
-    age: Int
 }

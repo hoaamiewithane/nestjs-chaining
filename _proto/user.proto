@@ -2,18 +2,17 @@ syntax = "proto3";
 
 package user;
 
+
 service UsersService {
-    rpc Find (User) returns (User);
+  rpc FindByEmail (PayloadFindByEmail) returns (SignupInput);
+  rpc Signup (SignupInput) returns (SignupInput);
 }
 
-message UserById {
-    int32 id = 1;
+message SignupInput {
+  string email = 1;
+  string password = 2;
 }
 
-message User {
-    int32 id = 1;
-    string name = 2;
-    string email = 3;
-    string password = 4;
-    int32 age = 5;
+message PayloadFindByEmail {
+  string email = 1;
 }
