@@ -6,23 +6,11 @@ package user;
 
 
 service UsersService {
-  rpc FindByEmail (PayloadFindByEmail) returns (SignupInput);
-  rpc Signup (SignupInput) returns (SignupInput);
+  rpc Signup (SignupInput) returns (bool);
 }
 
 message SignupInput {
   string email = 1;
   string password = 2;
-}
-
-message PayloadFindByEmail {
-  string email = 1;
-}
-
-message UserOrNull {
-  oneof user_or_null {
-    SignupInput user = 1;
-    google.protobuf.Empty null_user = 2;
-  }
 }
 

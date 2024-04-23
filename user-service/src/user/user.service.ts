@@ -13,16 +13,17 @@ export class UserService {
   ) {}
 
   async findByEmail(email: string) {
-    const foundedUser = await this.userRepository.findOneBy({ email })
-    if (foundedUser) {
-      throw new Error('Email already exists')
-    }
+    return await this.userRepository.findOneBy({ email })
   }
 
   async signUp(data: ISignupPayload) {
     const { email, password } = data
-    await this.findByEmail(email)
+    const user = await this.findByEmail(email)
+    if (user) {
+      return false
+    }
     data.password = await bcrypt.hash(password, 10)
-    return await this.userRepository.save(data)
+    await this.userRepository.save(data)
+    return true
   }
 }

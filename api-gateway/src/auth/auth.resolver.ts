@@ -1,10 +1,10 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { AuthService } from '@/auth/auth.service'
-import { Inject, OnModuleInit } from '@nestjs/common'
 import { USERS_SERVICE } from '@/core/constants'
-import { ClientGrpcProxy } from '@nestjs/microservices'
-import { IUsersService } from '@/user/user.interface'
 import { SignupUserInput } from '@/graphql/type'
+import { IUsersService } from '@/user/user.interface'
+import { Inject, OnModuleInit } from '@nestjs/common'
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { ClientGrpcProxy } from '@nestjs/microservices'
 import { firstValueFrom } from 'rxjs'
 
 @Resolver()
@@ -24,7 +24,8 @@ export class AuthResolver implements OnModuleInit {
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
     const res = await firstValueFrom(this.usersService.signup(data))
-    console.log('res', res)
+    console.log(res)
+
     return {
       accessToken: 'accessToken',
       refreshToken: 'refreshToken',

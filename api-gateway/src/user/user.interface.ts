@@ -1,8 +1,6 @@
+import { SignupUserInput } from '@/graphql/type'
 import { Observable } from 'rxjs'
-import { SignupUserInput, User } from '@/graphql/type'
 
 export interface IUsersService {
-  findByEmail(email: Pick<SignupUserInput, 'email'>): any
-
-  signup(data: SignupUserInput): Observable<User>
+  signup(data: SignupUserInput): Observable<boolean>
 }
