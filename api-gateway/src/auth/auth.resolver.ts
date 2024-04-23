@@ -1,30 +1,26 @@
 import { AuthService } from '@/auth/auth.service'
 import { USERS_SERVICE } from '@/core/constants'
+import { SIGN_UP } from '@/core/constants/event'
 import { SignupUserInput } from '@/graphql/type'
-import { IUsersService } from '@/user/user.interface'
-import { Inject, OnModuleInit } from '@nestjs/common'
+import { Inject } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { ClientGrpcProxy } from '@nestjs/microservices'
+import { ClientProxy } from '@nestjs/microservices'
 import { firstValueFrom } from 'rxjs'
 
 @Resolver()
-export class AuthResolver implements OnModuleInit {
-  private usersService: IUsersService
-
+export class AuthResolver {
   constructor(
     @Inject(USERS_SERVICE)
-    private readonly usersServiceClient: ClientGrpcProxy,
+    private readonly usersService: ClientProxy,
     private readonly authService: AuthService
   ) {}
 
-  onModuleInit() {
-    this.usersService = this.usersServiceClient.getService(USERS_SERVICE)
-  }
-
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
-    const res = await firstValueFrom(this.usersService.signup(data))
-    console.log(res)
+    const res = await firstValueFrom(
+      this.usersService.send({ cmd: SIGN_UP }, data)
+    )
+    console.log('Received SIGN_UP event', res)
 
     return {
       accessToken: 'accessToken',

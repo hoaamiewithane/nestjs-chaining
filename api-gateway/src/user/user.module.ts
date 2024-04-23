@@ -1,9 +1,5 @@
 import { Module } from '@nestjs/common'
-import {
-  ClientGrpcProxy,
-  ClientProxyFactory,
-  Transport
-} from '@nestjs/microservices'
+import { ClientProxyFactory, Transport } from '@nestjs/microservices'
 import { USERS_SERVICE } from '@/core/constants'
 
 @Module({
@@ -11,13 +7,12 @@ import { USERS_SERVICE } from '@/core/constants'
   providers: [
     {
       provide: USERS_SERVICE,
-      useFactory: (): ClientGrpcProxy => {
+      useFactory: () => {
         return ClientProxyFactory.create({
-          transport: Transport.GRPC,
+          transport: Transport.TCP,
           options: {
-            url: `${process.env.USERS_SVC_URL}`,
-            package: 'user',
-            protoPath: '../_proto/user.proto'
+            host: process.env.HOST,
+            port: parseInt(process.env.USERS_SVC_PORT!)
           }
         })
       }
