@@ -1,7 +1,7 @@
 import { AuthService } from '@/auth/auth.service'
 import { USERS_SERVICE } from '@/core/constants'
 import { SIGN_UP } from '@/core/constants/event'
-import { SignupUserInput } from '@/graphql/type'
+import { SignupUserInput, User } from '@/graphql/type'
 import { Inject } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { ClientProxy } from '@nestjs/microservices'
@@ -17,15 +17,10 @@ export class AuthResolver {
 
   @Mutation()
   async signup(@Args('data') data: SignupUserInput) {
-    const res = await firstValueFrom(
-      this.usersService.send({ cmd: SIGN_UP }, data)
+    const user = await firstValueFrom(
+      this.usersService.send<User | null>({ cmd: SIGN_UP }, data)
     )
-    console.log('Received SIGN_UP event', res)
-
-    return {
-      accessToken: 'accessToken',
-      refreshToken: 'refreshToken',
-      user: res
-    }
+    if (!user) throw new Error('User already exists')
+    return this.authService.generateToken(user)
   }
 }

@@ -6,11 +6,13 @@ import { User } from '@/graphql/type'
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async generateAccessToken(user: User): Promise<string> {
-    return this.jwtService.sign({ user: user.email })
-  }
-
-  async generateRefreshToken(user: User): Promise<string> {
-    return this.jwtService.sign({ user: user.email }, { expiresIn: '1h' })
+  generateToken(user: User): { accessToken: string; refreshToken: string } {
+    return {
+      accessToken: this.jwtService.sign({ user: user.email }),
+      refreshToken: this.jwtService.sign(
+        { user: user.email },
+        { expiresIn: '1h' }
+      )
+    }
   }
 }

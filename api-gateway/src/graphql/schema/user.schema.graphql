@@ -11,7 +11,6 @@ type Mutation {
 type SignUpResponse {
     accessToken: String
     refreshToken:String
-    user: User
 }
 
 type User {

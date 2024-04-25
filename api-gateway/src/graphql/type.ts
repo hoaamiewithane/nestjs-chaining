@@ -25,7 +25,6 @@ export interface IMutation {
 export interface SignUpResponse {
     accessToken?: Nullable<string>;
     refreshToken?: Nullable<string>;
-    user?: Nullable<User>;
 }
 
 export interface User {

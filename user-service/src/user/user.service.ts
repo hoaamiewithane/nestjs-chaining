@@ -20,10 +20,9 @@ export class UserService {
     const { email, password } = data
     const user = await this.findByEmail(email)
     if (user) {
-      return false
+      return null
     }
     data.password = await bcrypt.hash(password, 10)
-    await this.userRepository.save(data)
-    return true
+    return await this.userRepository.save(data)
   }
 }
