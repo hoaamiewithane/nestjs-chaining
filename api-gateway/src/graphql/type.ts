@@ -13,9 +13,15 @@ export interface SignupUserInput {
     password: string;
 }
 
+export interface SigninUserInput {
+    email: string;
+    password: string;
+}
+
 export interface IQuery {
     users(): Nullable<Nullable<User>[]> | Promise<Nullable<Nullable<User>[]>>;
-    user(id: string): Nullable<User> | Promise<Nullable<User>>;
+    user(email: string): Nullable<User> | Promise<Nullable<User>>;
+    signin(data?: Nullable<SigninUserInput>): Nullable<SignInResponse> | Promise<Nullable<SignInResponse>>;
 }
 
 export interface IMutation {
@@ -23,12 +29,17 @@ export interface IMutation {
 }
 
 export interface SignUpResponse {
-    accessToken?: Nullable<string>;
-    refreshToken?: Nullable<string>;
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface User {
     email?: Nullable<string>;
+}
+
+export interface SignInResponse {
+    accessToken: string;
+    refreshToken: string;
 }
 
 type Nullable<T> = T | null;

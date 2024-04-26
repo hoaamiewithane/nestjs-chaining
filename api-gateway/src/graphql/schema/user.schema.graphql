@@ -1,23 +1,33 @@
 type Query {
-    users: [User]
-    user(id: ID!): User
+  users: [User]
+  user(email: String!): User
+  signin(data: SigninUserInput): SignInResponse
 }
 
 type Mutation {
-    signup(data: SignupUserInput):SignUpResponse
+  signup(data: SignupUserInput): SignUpResponse
 }
 
-
 type SignUpResponse {
-    accessToken: String
-    refreshToken:String
+  accessToken: String!
+  refreshToken: String!
 }
 
 type User {
-    email: String
+  email: String
 }
 
 input SignupUserInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
+}
+
+input SigninUserInput {
+  email: String!
+  password: String!
+}
+
+type SignInResponse {
+  accessToken: String!
+  refreshToken: String!
 }

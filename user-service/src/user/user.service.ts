@@ -25,4 +25,16 @@ export class UserService {
     data.password = await bcrypt.hash(password, 10)
     return await this.userRepository.save(data)
   }
+
+  async signIn(data: ISignupPayload) {
+    const { email, password } = data
+    const foundUser = await this.findByEmail(email)
+    if (foundUser) {
+      const isMatch = await bcrypt.compare(password, foundUser.password)
+      if (isMatch) {
+        return foundUser
+      }
+    }
+    return null
+  }
 }
