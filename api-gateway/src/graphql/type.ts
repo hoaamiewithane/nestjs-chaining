@@ -42,4 +42,8 @@ export interface SignInResponse {
     refreshToken: string;
 }
 
+export interface ISubscription {
+    userCreated(email: string): Nullable<User> | Promise<Nullable<User>>;
+}
+
 type Nullable<T> = T | null;

@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthResolver } from './auth.resolver'
 import { UserModule } from '@/user/user.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { AppModule } from '@/app.module'
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
         signOptions: { expiresIn: '60s' }
       })
     }),
-
+    forwardRef(() => AppModule),
     forwardRef(() => UserModule)
   ],
   controllers: [],

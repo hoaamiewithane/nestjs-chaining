@@ -31,3 +31,7 @@ type SignInResponse {
   accessToken: String!
   refreshToken: String!
 }
+
+type Subscription {
+  userCreated(email:String!): User
+}
